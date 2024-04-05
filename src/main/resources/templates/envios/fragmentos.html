@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>TechShop</title>
+    <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+  </head>
+  <body>
+
+    <section th:fragment="formulario" class="py-4 mb-4 bg-light">
+      <div class="container">
+
+        <form class="row" method="post">
+         
+
+          <p class="h2 text-center">Formulario de Envios dentro y fuera del país</p>
+
+          <div class="col-md-6 mb-3">
+            <label for="cedulaCliente" class="form-label">Número de identificación</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-regular fa-id-card"></i></span>
+              <input id="cedulaCliente" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="nombreCliente" class="form-label">Nombre completo</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+              <input id="nombreCliente" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="vehiculoCliente" class="form-label">Codigo Postal</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-envelopes-bulk"></i></span>
+              <input id="vehiculoCliente" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="placeVehiculo" class="form-label">Pais</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+              <input id="placeVehiculo" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="servicio" class="form-label">Provincia</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+              <input id="servicio" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="descripcion" class="form-label">Canton</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+              <input id="descripcion" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="fechaServicio" class="form-label">Distrito</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+              <input id="fechaServicio" class="form-control" type="text" required/>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="telefonoCliente" class="form-label">Metódo de envio</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa-solid fa-truck-moving"></i></span>
+              <select class="form-select" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar metodo</option>
+              <option value="1">Retirar en una Agencia</option>
+              <option value="2">Directamente a mi casa</option>
+            </select>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+  </body>
+</html>

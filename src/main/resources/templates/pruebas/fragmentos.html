@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>TechShop</title>
+  </head>
+  <body>
+    <!-- *IMPORTANTE USAR EN PROYECTO* -->
+    <!-- 1 Sección para mostar los vehiculos en "bonito"-->
+    <section th:fragment="listadoVehiculos">
+      <div class="container">
+        <!-- fila de 3 columnas -->
+        <div class="row row-cols-3">
+          <!-- carta de padding 2 , 
+          producto porque fue inyectado desde controller, p es una variable-->
+          <div class="card p-2" th:each="v : ${vehiculos}">
+            <figure>
+              <!-- thymeleaf th:src ruta de imagen -->
+              <img th:src="${v.rutaImagen}" 
+                   class="card-img-top imagen-corte" 
+                   alt="alt"/>
+              <figcaption>
+                <!--  Está envuelta entre paréntesis para que se muestre como parte del mismo texto del precio
+                [[...]] se utiliza para procesar el texto sin escapar  -->
+                $[[${v.precio}]] ([[${v.existencias}]])
+              </figcaption>
+            </figure>
+            <div class="card-header">
+              <!-- p porque lo nombramos arriba -->
+              <h4>[[${v.marca}]]</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">[[${v.modelo}]]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section th:fragment="tabsCategoria">
+      <div class="container">
+        <div class="row py-4">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <!-- "/pruebas/listado" viene del controller, el retorno -->
+              <a class="nav-link" href="/pruebas/listado">
+                [[#{pruebas.todas}]]
+              </a>
+            </li>
+            <!-- funciona porque PruebasController paso categorias con el model -->
+            <li class="nav-item" th:each="c : ${categorias}">
+              <!-- "para pasar el idCategoria como un url dentro de la pestaña-->
+              <a class="nav-link" th:href="@{/pruebas/listado/}+${c.idCategoria}">
+                [[${c.descripcion}]]
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section th:fragment="tabBotons">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">[[#{pruebas.todas}]]</button>
+        </li>
+        <li class="nav-item" role="presentation"  th:each="c : ${categorias}">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" th:href="@{/pruebas/listado/}+${c.idCategoria}">[[${c.descripcion}]]</button>
+        </li>
+      </ul>
+    </section>
+-->
+<!--
+<div th:fragment="boton">
+ <button class="btn btn-primary" th:onclick="|window.location.href='/index'|">Texto del botón</button>
+-->
+</div>
+  </body>
+</html>

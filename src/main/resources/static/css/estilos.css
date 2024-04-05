@@ -1,0 +1,119 @@
+:root {
+    --color-pri: rgb(255, 184, 43); 
+    --color-sec: rgb(37, 37, 37);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto Condensed", sans-serif;
+}
+/*
+header{
+   height: 155px;
+    background-color: var(--color-sec);
+    color: white;
+    letter-spacing: normal;
+    font-style: normal;
+    font-weight: 400;
+    align-items: center;
+    font-size: 15px;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    
+}*/
+.navegacion{
+    display: flex;
+}
+.navegacion a{
+    text-decoration: none;
+    color: white;
+}
+.seccionHeaderLeft{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+.seccionHeaderLeft img{
+    width: 110px;
+    height: 70px;
+}
+.seccionHeaderCenter{
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+.seccionHeaderCenter p{
+    padding: 20px;
+}
+.seccionHeaderRight{
+    width: 50%;
+    display: flex;
+}
+.seccionHeaderRight p{
+    padding: 20px
+}
+
+.buscador{
+    background-color: var(--color-pri);
+    height: 60px;
+}
+.cajaBuscador{
+    padding: 15px;
+    margin-left: 45px
+}
+.buscador i{
+    font-size: 20px
+}
+.buscador input{
+    background-color: transparent;
+    border: 0px;
+    color: black;
+    width: 250px;
+    height: 30px
+}
+.buscador input::placeholder{
+    color: black
+}
+
+
+footer{
+    height: 200px;
+    background-color: var(--color-sec);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-orange {
+    background-color: var(--color-pri);
+}
+.header-fixed {
+    height: 155px;
+    background-color: var(--color-sec);
+    color: white;
+    letter-spacing: normal;
+    font-style: normal;
+    font-weight: 400;
+    align-items: center;
+    font-size: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+}
+
+.main-content {
+    margin-top: 200px;
+}
+
+.imagen-corte {
+    height: 250px;
+    object-fit: cover;
+}

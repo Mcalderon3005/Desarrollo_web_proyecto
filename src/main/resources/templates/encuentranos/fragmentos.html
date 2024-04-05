@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <!-- 1 Sección del mapa-->
+        <section th:fragment="mapa" class="py-4 mb-4 bg-light">
+            <div class="container">
+
+                <div class="col-md-3">   
+
+                    <p>Estación de carga más cercana</p>
+                    
+                    <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" 
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD6DXuX_kl6D4J3_Du6ud68odvppSg5i3g&q=Manuel+Benavides+Rodríguez,+Heredia"/>
+                      </iframe>
+                    
+
+                </div>
+
+            </div>
+        </section>
+
+    </body>
+</html>

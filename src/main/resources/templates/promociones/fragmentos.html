@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <!-- 1 Sección del formulario-->
+        <section th:fragment="formulario" class="py-4 mb-4 bg-light">
+            <div class="container">
+
+                <div class="row">  
+                    
+                    <p class="h2 text-center">Formulario Servicio de mantenimiento y reparaciones</p>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="cedulaCliente" class="form-label">Número de identificación</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-regular fa-id-card"></i></span>
+                            <input id="cedulaCliente" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="nombreCliente" class="form-label">Nombre completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                            <input id="nombreCliente" class="form-control" type="text"/>
+                           </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="vehiculoCliente" class="form-label">Vehículo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-car"></i></span>
+                            <input id="vehiculoCliente" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="placeVehiculo" class="form-label">Placa</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                            <input id="placeVehiculo" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="servicio" class="form-label">Servicio</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-regular fa-folder"></i></span>
+                            <input id="servicio" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="descripcion" class="form-label">Dscripción</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-regular fa-file-lines"></i></span>
+                            <input id="descripcion" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="fechaServicio" class="form-label">Fecha de servicio</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-regular fa-calendar"></i></span>
+                            <input id="fechaServicio" class="form-control" type="date"/>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="telefonoCliente" class="form-label">Teléfono</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                            <input id="telefonoCliente" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="button" class="btn btn-success">Enviar</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </body>
+</html>

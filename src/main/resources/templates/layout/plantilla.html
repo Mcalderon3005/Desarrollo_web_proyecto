@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+  <head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Concesionaria</title>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/js/rutinas.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:ital,wght@0,300;1,300&family=Slabo+27px&display=swap" rel="stylesheet">
+    -->
+
+
+    <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+
+  </head>
+  <body>
+
+    <header th:fragment="header">
+      <div class="header-fixed">
+        <nav class="navegacion py-2">
+          <div class="seccionHeaderLeft">
+            <a th:href="@{/}"><img th:src="@{/img/logo.jpg}" alt=""></a>
+          </div>
+          <div class="seccionHeaderCenter">
+            
+            <ul class="navbar-nav" style="align-items: center">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{header.vehiculos}]]</a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item"  th:href="@{/vehiculo/listado}">[[#{header.vehiculos}]]</a></li>
+                    <li><a class="dropdown-item" th:href="@{/categoria/listado}">[[#{header.categorias}]]</a></li>
+                    <li><a class="dropdown-item" th:href="@{/pruebas/listado}">Prueba</a></li>
+                  </ul>
+                </li>
+              </ul>
+            <p>[[#{header.accesorios}]]</p>
+            <p><a th:href="@{/promociones/listado}">[[#{header.promociones}]]</a></p>
+          </div>
+          <div class="seccionHeaderRight">
+            <p>
+            <ul class="navbar-nav" style="align-items: center">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{header.financiamiento}]]</a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item"  href="#">[[#{header.financiamiento}]]</a></li>
+                    <li><a class="dropdown-item" th:href="@{/envios/listado}">[[#{header.envios}]]</a></li>
+                  </ul>
+                </li>
+              </ul></p>
+            <p><a th:href="@{/encuentranos/listado}">[[#{header.encuentranos}]]</a></p>
+
+            <p>[[#{header.preguntasFrecuentes}]]</p>
+            <p><i class="fa-solid fa-cart-shopping"></i></p>
+            <p><i class="fa-solid fa-earth-americas"></i>
+              <ul class="navbar-nav" style="align-items: center">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{plantilla.idioma}]]</a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item"  th:href="@{/(lang=es)}">ES</a></li>
+                    <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <p><i class="fa-regular fa-circle-user"></i></p>
+          </div>
+        </nav>
+        <div class="buscador">
+
+          <div class="cajaBuscador">
+            <i class="fa-solid fa-search"></i> <input type="text"  placeholder="Buscas algo en específico">
+          </div>
+
+        </div>
+      </div>
+      <div class="main-content"></div>
+    </header>
+
+
+
+
+
+    <footer th:fragment="footer">
+      &COPY; [[#{footer.derechos}]]
+    </footer>
+  </body>
+</html>

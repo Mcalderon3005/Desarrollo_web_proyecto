@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>TechShop</title>
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  </head>
+  <body>
+
+    <section th:fragment="listarVehiculos">
+      <div class="container">
+        <div class="row row-cols-3">
+          <div class="card" th:each="v : ${vehiculos}">
+            <figure>
+              <img th:src="${v.rutaImagen}" 
+                   class="card-img-top imagen-corte" 
+                   alt="..."/>
+              <figcaption>
+                $[[${v.precio}]] ([[${v.existencias}]])
+              </figcaption>
+            </figure>
+            <div class="card-header">
+              <h4>[[${v.marca}]]</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">[[${v.modelo}]]</p>
+              <p class="card-text">[[${v.activo}]]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section th:fragment="tabsCategoria">
+      <div class="row py-4">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <!-- "/pruebas/listado" viene del controller, el retorno -->
+            <a class="nav-link" href="/index">
+              [[#{pruebas.todas}]]
+            </a>
+          </li>
+          <!-- funciona porque paso categorias con el model -->
+          <li class="nav-item" th:each="c : ${categorias}">
+            <!-- "para pasar el idCategoria como un url dentro de la pestaña-->
+            <a class="nav-link">[[${c.descripcion}]]</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </body>
+</html>

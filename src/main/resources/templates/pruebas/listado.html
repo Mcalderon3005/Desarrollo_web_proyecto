@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!-- Esta es mi primera página HTML -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>La Pulpe</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+      <!-- layout es el folder y plantilla el nombre del archivo -->
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
+        <!-- pruebas es el folder y fragmentos el nombre del archivo -->
+        <section th:replace="~{pruebas/fragmentos :: tabsCategoria}"/>
+        <section th:replace="~{pruebas/fragmentos :: listadoVehiculos}"/>
+        
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>
