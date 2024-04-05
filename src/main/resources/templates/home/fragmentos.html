@@ -42,6 +42,12 @@
               [[#{pruebas.todas}]]
             </a>
           </li>
+          <li class="nav-item">
+            <!-- "/pruebas/listado" viene del controller, el retorno -->
+            <a class="nav-link" href="/index">
+              Otros
+            </a>
+          </li>
           <!-- funciona porque paso categorias con el model -->
           <li class="nav-item" th:each="c : ${categorias}">
             <!-- "para pasar el idCategoria como un url dentro de la pestaña-->
