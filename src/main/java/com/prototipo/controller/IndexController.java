@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestMapping;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -20,26 +22,60 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 //@RequestMapping("/")
-public class HomeController {
+public class IndexController {
 
     @Autowired
     private VehiculoService vehiculoService;
-    @Autowired
-    private CategoriaService categoriaService;
-
-    @GetMapping(value = {"/", "/index"})
-    public String listado(Model model) {
-        var vehiculos = vehiculoService.getVehiculos(false);
-        model.addAttribute("vehiculos", vehiculos);
-        return "index";
-    }
+//    @Autowired
+//    private CategoriaService categoriaService;
+//    
     
-    @GetMapping(value = {"/{idCategoria}", "/index/{idCategoria}"})
-    public String modifica(Categoria categoria, Model model) {
-        categoria = categoriaService.getCategoria(categoria);
-        model.addAttribute("categoria", categoria);
+//    @GetMapping("/")
+//    public String listado(Model model, HttpSession session) {
+//        var lista = vehiculoService.getVehiculos(false);
+//        model.addAttribute("vehiculos", lista);
+//        String moneda = (String) session.getAttribute("moneda");
+//        model.addAttribute("moneda", moneda); // Agrega la moneda al modelo
+//        return "index";
+//    }
+    
+    @GetMapping(value = {"/", "/index"})
+    public String home(@RequestParam(name = "moneda", required = false, defaultValue = "dolar") String moneda, Model model) {
+        model = vehiculoService.getPrecios(model, moneda);
+       
+            //session.setAttribute("moneda", moneda);
+        
         return "index";
     }
+//    
+    
+@GetMapping("/encuentranos/listado")
+    public String encuentranos() {
+        return "encuentranos/listado";
+    }
+
+    @GetMapping("/promociones/listado")
+    public String promociones() {
+        return "promociones/listado";
+    }
+
+    @GetMapping("/envios/listado")
+    public String envios() {
+        return "envios/listado";
+    }
+//    @GetMapping(value = {"/", "/index"})
+//    public String listado(Model model) {
+//        var vehiculos = vehiculoService.getVehiculos(false);
+//        model.addAttribute("vehiculos", vehiculos);
+//        return "index";
+//    }
+//    
+//    @GetMapping(value = {"/{idCategoria}", "/index/{idCategoria}"})
+//    public String modifica(Categoria categoria, Model model) {
+//        categoria = categoriaService.getCategoria(categoria);
+//        model.addAttribute("categoria", categoria);
+//        return "index";
+//    }
 
 //    @GetMapping("/index/{idCategoria}")
 //    public String modifica(Categoria categoria, Model model) {
@@ -71,20 +107,7 @@ public class HomeController {
 //        model.addAttribute("vehiculos", vehiculosInactivos); // Pasar vehículos inactivos al modelo
 //        return "index"; // Devolver la misma vista que la de vehículos activos
 //    }
-    @GetMapping("/encuentranos/listado")
-    public String encuentranos() {
-        return "encuentranos/listado";
-    }
-
-    @GetMapping("/promociones/listado")
-    public String promociones() {
-        return "promociones/listado";
-    }
-
-    @GetMapping("/envios/listado")
-    public String envios() {
-        return "envios/listado";
-    }
+    
 
 //@GetMapping("/listado/{idCategoria}")
 //    public String modifica(Vehiculo vehiculo, Model model) {

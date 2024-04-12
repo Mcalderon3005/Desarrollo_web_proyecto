@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>Concesionaria</title>
+    <meta charset="UTF-8"/>
+  </head>
+  <body>
+
+    <header th:replace="~{layout/plantilla :: header}" />
+
+    <div class="container ">
+      <div class="row justify-content-md-center m-5">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-center">Login</h1>
+              </div>
+            </div>
+            <div class="card-body">
+              <form method="post"
+                  th:action="@{/login}">
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="fas fa-user-lock"></i>
+                </div>
+                <input class="form-control" type="text" th:placeholder="#{login.username}" name="username" id="username"/>
+              </div>
+              <div class="input-group mt-3">
+                <div class="input-group-text">
+                  <i class="fas fa-key"></i>
+                </div>
+                <input class="form-control" type="password" th:placeholder="#{login.password}" name="password" id="password"/>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <p class="mb-0 mx-1">¿No tienes una cuenta?</p>
+                <a th:href="@{/registro/nuevo}" >[[#{accion.registrar}]]</a>
+              </div>
+
+              <div class="d-flex justify-content-center mb-2">
+                <a th:href="@{/registro/recordar}"> [[#{accion.recordar}]]</a>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-success" type="submit">
+                  <span class="btn"><i class="fas fa-sign-in-alt"></i>
+                    [[#{login.login}]]</span></button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- comment 
+    <div class="row justify-content-md-center m-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            <h2 class="text-center">[[#{login.login}]]</h2>
+          </div>
+          <div class="card-body">
+            <form method="post"
+                  th:action="@{/login}">
+              <div class="form-group row my-3">
+                <label class="col-md-5 my-auto" 
+                       for="username">
+                  <i class="fas fa-user-lock"></i> [[#{login.username}]]
+                </label>
+                <div class="col-md-7 my-auto">
+                  <input class="form-control" 
+                         type="text" 
+                         name="username"
+                         id="username"/>
+                </div>
+              </div>
+              <div class="form-group row my-3">
+                <label class="col-md-5 my-auto" 
+                       for="password">
+                  <i class="fas fa-key"></i> [[#{login.password}]]
+                </label>
+                <div class="col-md-7 my-auto">
+                  <input class="form-control" 
+                         type="password" 
+                         name="password"
+                         id="pasword"/>
+                </div>
+              </div>
+
+              <div class="card-footer col text-center">
+                <button class="btn btn-primary" >
+                  <a th:href="@{/registro/nuevo}" 
+                     class="btn"><i class="fas fa-user-plus"></i> [[#{accion.registrar}]]</a></button>
+                <button class="btn btn-info" >                                        
+                  <a th:href="@{/registro/recordar}" class="btn"><i class="fas fa-envelope"></i> [[#{accion.recordar}]]</a></button>
+                <button class="btn btn-success" type="submit">
+                  <span class="btn"><i class="fas fa-sign-in-alt"></i>
+                    [[#{login.login}]]</span></button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+
+    <footer th:replace="~{layout/plantilla :: footer }"/>
+
+  </body>
+</html>

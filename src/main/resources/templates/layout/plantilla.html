@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org"
       >
   <head th:fragment="head">
@@ -31,23 +32,48 @@
             <a th:href="@{/}"><img th:src="@{/img/logo.jpg}" alt=""></a>
           </div>
           <div class="seccionHeaderCenter">
-            
-            <ul class="navbar-nav" style="align-items: center">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{header.vehiculos}]]</a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item"  th:href="@{/vehiculo/listado}">[[#{header.vehiculos}]]</a></li>
-                    <li><a class="dropdown-item" th:href="@{/categoria/listado}">[[#{header.categorias}]]</a></li>
-                    <li><a class="dropdown-item" th:href="@{/pruebas/listado}">Prueba</a></li>
-                  </ul>
-                </li>
-              </ul>
+
+            <ul class="navbar-nav" style="align-items: center" sec:authorize="hasRole('VENDEDOR')">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{header.vehiculos}]]</a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item"  th:href="@{/vehiculo/listado}">[[#{header.vehiculos}]]</a></li>
+                  <li><a class="dropdown-item" th:href="@{/categoria/listado}">[[#{header.categorias}]]</a></li>
+                  <li><a class="dropdown-item" th:href="@{/pruebas/listado}">Prueba</a></li>
+                </ul>
+              </li>
+            </ul>
             <p>[[#{header.accesorios}]]</p>
+            <!-- Solo se muestra si no esta autenticado -->
+                      <ul class="navbar-nav" sec:authorize="!isAuthenticated">
+                        <li class="nav-item px-2 text-white">
+                          <a class="nav-link"
+                            th:href="@{/login}">
+                            <i class="fas fa-sign-in-alt"></i>
+                          </a>
+                        </li>
+                      </ul>
+                      
+                      <ul class="navbar-nav" sec:authorize="isAuthenticated">
+                        <li class="nav-item text-white my-auto">
+                          <span sec:authentication="name">xxx</span>
+                        </li>
+                        
+                        <!-- log out -->
+                        <li class="nav-item text-white my-auto">
+                          <form method="post"
+                                th:action="@{/logout}">
+                            <button class="btn btn-dark">
+                              <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
             <p><a th:href="@{/promociones/listado}">[[#{header.promociones}]]</a></p>
           </div>
           <div class="seccionHeaderRight">
             <p>
-            <ul class="navbar-nav" style="align-items: center">
+              <ul class="navbar-nav" style="align-items: center">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">[[#{header.financiamiento}]]</a>
                   <ul class="dropdown-menu dropdown-menu-dark">
@@ -70,6 +96,19 @@
                   </ul>
                 </li>
               </ul>
+
+              <ul class="navbar-nav" style="align-items: center">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="margin-top: 12px;">Moneda</a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" th:href="@{/(moneda=euro)}">Euro</a></li>
+                    <li><a class="dropdown-item" th:href="@{/(moneda=dolar)}">Dólar</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+
+
               <p><i class="fa-regular fa-circle-user"></i></p>
           </div>
         </nav>

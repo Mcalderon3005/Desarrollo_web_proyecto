@@ -17,11 +17,10 @@ import com.prototipo.service.VehiculoService;
  *
  * @author Tayron
  */
-
 @Controller
 @RequestMapping("/vehiculo")
 public class VehiculoController {
-    
+
     @Autowired
     private VehiculoService vehiculoService;
     @Autowired
@@ -38,7 +37,6 @@ public class VehiculoController {
         model.addAttribute("categorias", categorias);
         return "/vehiculo/listado";
     }
-
     @Autowired
     private FirebaseStorageService firebaseStorageService;
 
@@ -58,7 +56,7 @@ public class VehiculoController {
     public String modifica(Vehiculo vehiculo, Model model) {
         vehiculo = vehiculoService.getVehiculo(vehiculo);
         model.addAttribute("vehiculo", vehiculo);
-        
+
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
         return "/vehiculo/modifica";
@@ -69,13 +67,16 @@ public class VehiculoController {
         vehiculoService.delete(vehiculo);
         return "redirect:/vehiculo/listado";
     }
-    
+
+//    @GetMapping("/listado")
+//    public String home(@RequestParam(name = "moneda", required = false, defaultValue = "euro") String moneda, Model model) {
+//        model = vehiculoService.getPrecios(model, moneda);
+//        return "/vehiculo/listado";
+//    }
+
 //    @GetMapping("/listado")
 //    public String cambiarMoneda(double moneda) {
-//         vehiculoService.convertirMoneda(moneda, "EUR");
+//         vehiculoService.get(moneda, "EUR");
 //         return "/vehiculo/listado";
 //    }
 }
-    
-    
-

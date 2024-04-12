@@ -9,4 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface VehiculoDAO extends JpaRepository<Vehiculo,Long>{
     
+    //Se define una consulta JPA para colocar la moneda segun la seleccionada
+//    public double findByPrecio(
+//            Vehiculo vehiculo, String moneda);
+//    
 }

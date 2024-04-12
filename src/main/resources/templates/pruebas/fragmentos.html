@@ -23,7 +23,12 @@
               <figcaption>
                 <!--  Está envuelta entre paréntesis para que se muestre como parte del mismo texto del precio
                 [[...]] se utiliza para procesar el texto sin escapar  -->
-                $[[${v.precio}]] ([[${v.existencias}]])
+                <span th:if="${moneda == 'euro'}">€</span>
+                <span th:if="${moneda == 'dolar'}">$</span>
+                
+                
+                [[${v.precio}]] ([[${v.existencias}]])
+                
               </figcaption>
             </figure>
             <div class="card-header">
@@ -71,11 +76,11 @@
         </li>
       </ul>
     </section>
--->
-<!--
-<div th:fragment="boton">
- <button class="btn btn-primary" th:onclick="|window.location.href='/index'|">Texto del botón</button>
--->
-</div>
+    -->
+    <!--
+    <div th:fragment="boton">
+     <button class="btn btn-primary" th:onclick="|window.location.href='/index'|">Texto del botón</button>
+    -->
+    </div>
   </body>
 </html>
