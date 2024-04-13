@@ -67,7 +67,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .requestMatchers("/categoria/listado", "/vehiculo/listado")
                 .hasRole("VENDEDOR")
                 .requestMatchers("/categoria/nuevo", "/categoria/modificar/**", "/categoria/eliminar/**", "/categoria/guardar",
-                        "/vehiculo/nuevo", "/vehiculo/modificar/**", "/vehiculo/eliminar/**", "/vehiculo/guardar", "/pruebas/**")
+                        "/vehiculo/nuevo", "/vehiculo/modificar/**", "/vehiculo/eliminar/**", "/vehiculo/guardar", "/pruebas/**","/marketing/**")
                 .hasRole("ADMIN")
                 .requestMatchers("/facturar/carrito")
                 .hasRole("USER")

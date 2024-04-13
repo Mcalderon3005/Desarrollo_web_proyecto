@@ -43,7 +43,7 @@
                 </ul>
               </li>
             </ul>
-            <p>[[#{header.accesorios}]]</p>
+            <p><a th:href="@{/marketing/nuevo}" sec:authorize="hasRole('ADMIN')">[[#{header.accesorios}]]</a></p>
             <!-- Solo se muestra si no esta autenticado -->
                       <ul class="navbar-nav" sec:authorize="!isAuthenticated">
                         <li class="nav-item px-2 text-white">
@@ -68,6 +68,7 @@
                             </button>
                           </form>
                         </li>
+                        
                       </ul>
             <p><a th:href="@{/promociones/listado}">[[#{header.promociones}]]</a></p>
           </div>
