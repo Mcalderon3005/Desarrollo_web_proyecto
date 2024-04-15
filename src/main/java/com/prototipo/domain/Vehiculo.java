@@ -26,6 +26,7 @@ public class Vehiculo implements Serializable{
     private int existencias;
     private String rutaImagen;
     private boolean activo;
+    private String rutaInforme;
     
     @ManyToOne 
     @JoinColumn(name="id_categoria")

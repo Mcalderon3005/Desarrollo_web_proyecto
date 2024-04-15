@@ -5,6 +5,7 @@
 package com.prototipo.controller;
 
 import com.prototipo.domain.Categoria;
+import com.prototipo.domain.Vehiculo;
 import com.prototipo.service.CategoriaService;
 import com.prototipo.service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,17 @@ public class PruebasController {
         model.addAttribute("categorias", categorias);
 
         return "/pruebas/listado";
+    }
+    
+    @GetMapping("/detalles/{idVehiculo}")
+    public String detalles(Model model, Vehiculo vehiculo) {
+        vehiculo = vehiculoService.getVehiculo(vehiculo);
+        //Inyectado la lista controller
+        model.addAttribute("vehiculo", vehiculo);
+
+//        var categorias = categoriaService.getCategorias(false);
+//        model.addAttribute("categorias", categorias);
+        return "/pruebas/detalle";
     }
 
 //    @GetMapping("/listado/{idVehiculo}")

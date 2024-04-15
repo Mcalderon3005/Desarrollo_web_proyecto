@@ -25,15 +25,15 @@
                 [[...]] se utiliza para procesar el texto sin escapar  -->
                 <span th:if="${moneda == 'euro'}">€</span>
                 <span th:if="${moneda == 'dolar'}">$</span>
-                
-                
+
+
                 [[${v.precio}]] ([[${v.existencias}]])
-                
+
               </figcaption>
             </figure>
             <div class="card-header">
               <!-- p porque lo nombramos arriba -->
-              <h4>[[${v.marca}]]</h4>
+              <a th:href="@{/pruebas/detalles/}+${v.idVehiculo}" style="text-decoration: none; color: #000;"><h4>[[${v.marca}]]</h4></a>
             </div>
             <div class="card-body">
               <p class="card-text">[[${v.modelo}]]</p>
@@ -64,6 +64,34 @@
         </div>
       </div>
     </section>
+
+
+    <main th:fragment="vehiculoDetalles" class="mb-4">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-7">
+            <div class="d-flex justify-content-center">
+              <img th:src="${vehiculo.rutaImagen}" 
+                   class="rounded imagen-corte" 
+                   alt="Imagen del vehiculo"/>
+
+            </div>
+          </div>
+          <div class="col-md-5">
+            <h2>[[${vehiculo.marca}]]</h2>
+            <h3>[[${vehiculo.modelo}]] [[${vehiculo.anio}]]</h3>
+            <p>Existencias totales [[${vehiculo.existencias}]]</p>
+            <p>Valor: [[${vehiculo.precio}]]</p>
+            <p th:if="${vehiculo.rutaInforme != null}">Ruta del <a th:href="${vehiculo.rutaInforme}">informe</a></p>
+
+            <button class="btn bg-naranja">
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
 
     <!--
     <section th:fragment="tabBotons">

@@ -62,17 +62,18 @@ public class ProjectConfig implements WebMvcConfigurer {
             throws Exception {
         //A todo el mundo le permitimos esas rutas
         http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/js/**", "/webjars/**", "/registro/**", "/css/**", "/img/**")
+                .requestMatchers("/", "/index", "/js/**", "/webjars/**", "/registro/**", "/css/**", "/img/**","/encuentranos/listado")
                 .permitAll()
                 .requestMatchers("/categoria/listado", "/vehiculo/listado")
                 .hasRole("VENDEDOR")
                 .requestMatchers("/categoria/nuevo", "/categoria/modificar/**", "/categoria/eliminar/**", "/categoria/guardar",
-                        "/vehiculo/nuevo", "/vehiculo/modificar/**", "/vehiculo/eliminar/**", "/vehiculo/guardar", "/pruebas/**","/marketing/**")
+                        "/vehiculo/nuevo", "/vehiculo/modificar/**", "/vehiculo/eliminar/**", "/vehiculo/guardar","/vehiculo/editar", "/pruebas/**",
+                        "/marketing/**","/promociones/listado","/envios/listado","/informe/**")
                 .hasRole("ADMIN")
                 .requestMatchers("/facturar/carrito")
                 .hasRole("USER")
         )
-                .formLogin((form) -> form.loginPage("/login").permitAll())
+                .formLogin((form) -> form.loginPage("/login").permitAll().defaultSuccessUrl("/", true))
                 .logout((logout) -> logout.permitAll());
 
         return http.build();

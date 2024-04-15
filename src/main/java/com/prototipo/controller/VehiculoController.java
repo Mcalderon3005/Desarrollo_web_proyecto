@@ -40,17 +40,58 @@ public class VehiculoController {
     @Autowired
     private FirebaseStorageService firebaseStorageService;
 
+    
+   
     @PostMapping("/guardar")
-    public String save(Vehiculo vehiculo,
-            @RequestParam("imagenFile") MultipartFile imagenFile) {
-        if (!imagenFile.isEmpty()) { //debo subir la imagen
-            vehiculoService.save(vehiculo);
-            String ruta = firebaseStorageService.cargaImagen(imagenFile, "vehiculo", vehiculo.getIdVehiculo());
-            vehiculo.setRutaImagen(ruta);
-        }
+public String save(Vehiculo vehiculo,
+        @RequestParam("imagenFile") MultipartFile imagenFile,
+        @RequestParam("pdfFile") MultipartFile pdfFile) {
+    if (!imagenFile.isEmpty()) { // Debo subir la imagen
         vehiculoService.save(vehiculo);
-        return "redirect:/vehiculo/listado";
+        String ruta = firebaseStorageService.cargaImagen(imagenFile, "vehiculo", vehiculo.getIdVehiculo());
+        vehiculo.setRutaImagen(ruta);
     }
+    if (!pdfFile.isEmpty()) { // Verificar si se seleccionó un archivo PDF
+        vehiculoService.save(vehiculo);
+        String rutapdf = firebaseStorageService.cargaPDF(pdfFile, "vehiculo", vehiculo.getIdVehiculo());
+        vehiculo.setRutaInforme(rutapdf);
+    }
+    vehiculoService.save(vehiculo);
+    return "redirect:/vehiculo/listado";
+}
+
+/*
+    Método para editar un vehículo que ya existe en la base de datos.
+    Se crea este método separado de guardar debido a un problema que causaba
+    que se quitaba el null de las ruta informe cuando no se modificaban.
+    Esto provocaba que las rutas de informe se mostraran incorrectamente
+    incluso si el vehículo no tenía una ruta asociada.
+*/
+@PostMapping("/editar")
+public String editar(Vehiculo vehiculo,
+                   @RequestParam("imagenFile") MultipartFile imagenFile,
+                   @RequestParam("pdfFile") MultipartFile pdfFile) {
+    Vehiculo vehiculoExistente = vehiculoService.getVehiculo(vehiculo);
+ 
+    String rutaInformeActual = vehiculoExistente.getRutaInforme();
+    
+    if (!imagenFile.isEmpty()) { 
+        String ruta = firebaseStorageService.cargaImagen(imagenFile, "vehiculo", vehiculo.getIdVehiculo());
+        vehiculo.setRutaImagen(ruta);
+    }
+
+    if (!pdfFile.isEmpty()) {
+        String rutaInformeNueva = firebaseStorageService.cargaPDF(pdfFile, "vehiculo", vehiculo.getIdVehiculo());
+        vehiculo.setRutaInforme(rutaInformeNueva);
+    } else {
+        // Conservar la ruta de informe actual si no se selecciona un nuevo archivo
+        vehiculo.setRutaInforme(rutaInformeActual);
+    }
+    
+    vehiculoService.save(vehiculo);
+    return "redirect:/vehiculo/listado";
+}
+
 
     @GetMapping("/modificar/{idVehiculo}")
     public String modifica(Vehiculo vehiculo, Model model) {

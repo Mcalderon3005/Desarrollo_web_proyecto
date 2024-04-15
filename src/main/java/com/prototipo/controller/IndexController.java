@@ -5,8 +5,14 @@
 package com.prototipo.controller;
 
 import com.prototipo.domain.Categoria;
+import com.prototipo.domain.Usuario;
+import com.prototipo.domain.Vehiculo;
 import com.prototipo.service.CategoriaService;
+import com.prototipo.service.CorreoMarketingService;
+import com.prototipo.service.FirebaseStorageService;
+import com.prototipo.service.UsuarioService;
 import com.prototipo.service.VehiculoService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -63,6 +71,42 @@ public class IndexController {
     public String envios() {
         return "envios/listado";
     }
+    
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private CorreoMarketingService correoMarketingService;
+
+    @GetMapping("/informe/listado")
+    public String nuevo(Model model) {
+        var usuariolista = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuariolista);
+        
+        return "/informe/listado";
+    }
+
+//    @PostMapping("/informe/listado/enviarMensaje")
+//    public String enviarMensaje(Usuario usuario, @RequestParam("mensaje") String mensaje) throws MessagingException {
+//        usuario = usuarioService.getUsuario(usuario);
+//        correoMarketingService.mostrarMensajeLanzamientoVehiculo(usuario, mensaje);
+//        return "redirect:/informe/listado";
+//    }
+    
+//    @Autowired
+//    private FirebaseStorageService firebaseStorageService;
+//    
+//    @PostMapping("/informe/listado/enviarMensaje")
+//    public String save(Vehiculo vehiculo,
+//            @RequestParam("imagenFile") MultipartFile imagenFile) {
+//        if (!imagenFile.isEmpty()) { //debo subir la imagen
+//            vehiculoService.save(vehiculo);
+//            String ruta = firebaseStorageService.cargaPDF(imagenFile, "vehiculo", vehiculo.getIdVehiculo());
+//            vehiculo.setRutaImagen(ruta);
+//        }
+//        vehiculoService.save(vehiculo);
+//        return "redirect:/informe/listado";
+//    }
 //    @GetMapping(value = {"/", "/index"})
 //    public String listado(Model model) {
 //        var vehiculos = vehiculoService.getVehiculos(false);

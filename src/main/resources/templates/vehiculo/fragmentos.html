@@ -191,6 +191,11 @@
                   <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
                   <img id="blah" src="#" alt="your image" height="200"/>
                 </div>
+
+                <div class="mb-3">
+                  <label for="pdfFile">Ruta de informe</label>
+                  <input class="form-control" type="file" name="pdfFile"/>
+                </div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" type="submit">Guardar</button>
@@ -206,12 +211,13 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <form method="POST"
-                th:action="@{/vehiculo/guardar}" 
+                th:action="@{/vehiculo/editar}" 
                 th:object="${vehiculo}"
                 class="was-validated"                          
                 enctype="multipart/form-data">
             <input type="hidden" name="idVehiculo" th:field="*{idVehiculo}"/>
             <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+      <!-- comment      <input type="hidden" name="rutaInforme" th:field="*{rutaInforme}"/>-->
             <div id=details>
               <div class="container">
                 <div class="row">
@@ -264,6 +270,11 @@
                           <input class="form-control" type="file" name="imagenFile"
                                  onchange="readURL(this);" />
                           <img id="blah" th:src="@{${vehiculo.rutaImagen}}" alt="your image" height="200"/>
+                        </div>
+                        <div class="mb-3">
+                          <label for="pdfFile">Ruta del informe</label>
+                          <input class="form-control" type="file" name="pdfFile"/>
+                          <p style="margin-top: 8px; padding: 5px" th:if="${vehiculo.rutaInforme != null}">Ruta del <a th:href="${vehiculo.rutaInforme}">informe</a></p>
                         </div>
                         <section th:replace="~{vehiculo/fragmentos :: botonesEditar}"/>
                       </div>

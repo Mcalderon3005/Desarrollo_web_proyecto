@@ -16,8 +16,6 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.Storage.SignUrlOption;
 import com.google.cloud.storage.StorageOptions;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.Message;
 import com.prototipo.service.FirebaseStorageService;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FirebaseStorageServiceImpl implements FirebaseStorageService {
+
     @Override
     public String cargaImagen(MultipartFile archivoLocalCliente, String carpeta, Long id) {
         try {
@@ -60,7 +59,7 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         ClassPathResource json = new ClassPathResource(rutaJsonFile + File.separator + archivoJsonFile);
         BlobId blobId = BlobId.of(BucketName, rutaSuperiorStorage + "/" + carpeta + "/" + fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-        
+
         Credentials credentials = GoogleCredentials.fromStream(json.getInputStream());
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
@@ -71,7 +70,7 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
     //Método utilitario que convierte el archivo desde el equipo local del usuario a un archivo temporal en el servidor
     private File convertToFile(MultipartFile archivoLocalCliente) throws IOException {
         File tempFile = File.createTempFile("img", null);
-        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+        try ( FileOutputStream fos = new FileOutputStream(tempFile)) {
             fos.write(archivoLocalCliente.getBytes());
             fos.close();
         }
@@ -82,19 +81,28 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
     private String sacaNumero(long id) {
         return String.format("%019d", id);
     }
-    
-//    public void enviarNotificacion(String tokenDispositivo, String titulo, String cuerpo) {
-//        Message message = Message.builder()
-//                .putData("titulo", titulo)
-//                .putData("cuerpo", cuerpo)
-//                .setToken(tokenDispositivo)
-//                .build();
-//
-//        try {
-//            FirebaseMessaging.getInstance().send(message);
-//            System.out.println("Notificación push enviada con éxito a: " + tokenDispositivo);
-//        } catch (Exception e) {
-//            System.err.println("Error al enviar la notificación push: " + e.getMessage());
-//        }
-//    }
+
+    @Override
+    public String cargaPDF(MultipartFile archivo, String carpeta, Long id) {
+        try {
+            String extension = archivo.getOriginalFilename();
+
+            // Generar el nombre del archivo según el ID y la extensión
+            String fileName = "documento" + sacaNumero(id) + extension;
+
+            // Convertir el archivo a un archivo temporal en el servidor
+            File file = convertToFile(archivo);
+
+            // Subir el archivo a Firebase Storage
+            String URL = uploadFile(file, carpeta, fileName);
+
+            // Eliminar el archivo temporal
+            file.delete();
+
+            return URL;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

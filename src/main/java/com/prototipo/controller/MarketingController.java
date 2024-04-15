@@ -6,7 +6,6 @@ package com.prototipo.controller;
 
 import com.prototipo.domain.Usuario;
 import com.prototipo.service.CorreoMarketingService;
-import com.prototipo.service.RegistroService;
 import com.prototipo.service.UsuarioService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -42,6 +42,11 @@ header{
     width: 110px;
     height: 70px;
 }
+
+.logo {
+    width: 110px;
+    height: 70px;
+}
 .seccionHeaderCenter{
     width: 30%;
     display: flex;
@@ -90,8 +95,12 @@ footer{
     justify-content: center;
 }
 
-.bg-orange {
+.bg-naranja {
     background-color: var(--color-pri);
+}
+
+.bg-gris {
+    background-color: var(--color-sec);
 }
 .header-fixed {
     height: 155px;
@@ -116,4 +125,20 @@ footer{
 .imagen-corte {
     height: 250px;
     object-fit: cover;
+}
+
+.btn-logout {
+    width: 100%;
+    text-align: start;
+    color: white;
+}
+
+.custom-toggler {
+  color: #444;
+  background-color: transparent;
+  border-color: #fff; 
+}
+
+.custom-toggler:hover {
+  background-color: #666; 
 }

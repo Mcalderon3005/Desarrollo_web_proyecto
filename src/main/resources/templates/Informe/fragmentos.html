@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>TechShop</title>
+    <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+  </head>
+  <body>
+
+    <section th:fragment="formulario" class="py-4 mb-4 bg-light">
+      <div class="container">
+        <form class="row" method="post" th:action="@{/informe/listado/enviarMensaje}">
+          <p class="h2 text-center">Formulario para enviar Informes</p>
+          
+          <div class="col-md-6 mb-3">
+            <label for="mensaje">Mensaje</label>
+            <input class="form-control" type="file" name="pdf"/>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    
+    
+    
+    
+
+  </body>
+</html>
