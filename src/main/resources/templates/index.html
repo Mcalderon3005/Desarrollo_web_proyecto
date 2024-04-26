@@ -14,131 +14,20 @@
     <section th:replace="~{home/fragmentos :: tabsCategoria}"/>
 
     <section th:replace="~{home/fragmentos :: listarVehiculos}"/>-->
-    <section th:replace="~{pruebas/fragmentos :: listadoVehiculos}"/>
+    <section th:replace="~{carrito/fragmentos :: listadoVehiculos}"/>
 
-    <header>
-
-      <nav class="navbar navbar-expand-lg bg-gris">
-        <div class="container-fluid">
-          <a class="navbar-brand" th:href="@{/}"><img class="logo" th:src="@{/img/logo.jpg}" alt="Logo"/></a>
-          <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fas fa-bars" style="color:#fff"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" 
-                   data-bs-toggle="dropdown" 
-                   href="#" 
-                   role="button" 
-                   aria-expanded="false">[[#{header.vehiculos}]]</a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item"  th:href="@{/vehiculo/listado}">[[#{header.vehiculos}]]</a></li>
-                  <li><a class="dropdown-item" th:href="@{/categoria/listado}">[[#{header.categorias}]]</a></li>
-                  <li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.consultas}]]</a></li>
-                  <li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.consultas}]]</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#">[[#{header.accesorios}]]</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" th:href="@{/promociones/listado}">[[#{header.promociones}]]</a>
-              </li>
-            </ul>
-
-            <ul class="navbar-nav align-items-center">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" 
-                   data-bs-toggle="dropdown" 
-                   href="#" 
-                   role="button" 
-                   aria-expanded="false">[[#{header.financiamiento}]]</a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item"  href="#">[[#{header.financiamiento}]]</a></li>
-                  <li><a class="dropdown-item" th:href="@{/envios/listado}">[[#{header.envios}]]</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" th:href="@{/encuentranos/listado}">[[#{header.encuentranos}]]</a>
-              </li>
-              <li class="nav-item" style="max-width: 94px">
-                <a class="nav-link text-white" href="#">[[#{header.preguntasFrecuentes}]]</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-earth-americas"></i> [[#{plantilla.idioma}]]</a>
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                  <li><a class="dropdown-item"  th:href="@{/(lang=es)}">ES</a></li>
-                  <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
-                </ul>
-              </li>
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-earth-americas"></i>Moneda</a>
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                  <li><a class="dropdown-item" th:href="@{/(moneda=euro)}">Euro</a></li>
-                  <li><a class="dropdown-item" th:href="@{/(moneda=dolar)}">Dólar</a></li>
-                </ul>
-              </li>
-
-              <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle text-white" 
-                   data-bs-toggle="dropdown" 
-                   href="#" 
-                   role="button" 
-                   aria-expanded="false"><i class="fa-regular fa-circle-user fa-lg"></i></a>
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                  <li sec:authorize="isAuthenticated"><a class="dropdown-item"  href="#">Perfil</a></li>
-                  <li><a class="dropdown-item" th:href="@{/marketing/nuevo}" sec:authorize="hasRole('ADMIN')">Marketing</a></li>
-
-                  <li sec:authorize="isAuthenticated">
-                    <form method="post"
-                          th:action="@{/logout}">
-                      <button class="dropdown-item">
-                        Cerrar Sesion
-                      </button>
-                    </form>
-                  </li>
-
-                  <li sec:authorize="!isAuthenticated">
-                    <a class="dropdown-item"
-                       th:href="@{/login}">Iniciar Sesion
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
-
-          </div>
-        </div>
-      </nav>
-      <div class="container-fluid bg-naranja">
-        <div class="row p-2">
-          <div class="col-md-6 d-flex align-items-center my-1">
-            <i class="fa-solid fa-search fa-lg me-2" style="color:#fff"></i>
-            <input list="busquedaV" class="form-control" placeholder="Buscas algo en específico" style="background-color: transparent;"/>
-              <datalist id="busquedaV">
-                <option th:each="v : ${vehiculos}" th:text="${v.modelo}"></option>
-              </datalist>
-          </div>
-
-        </div>
-      </div>
-    </header>
-<!--
-    <p>Mira la img <a th:each="v : ${vehiculos}" th:href="${v.rutaInforme}" th:download="${v.rutaInforme}">img</a></p>
-     comment
-    <iframe width="1100" height="400" th:each="v : ${vehiculos}" th:src="${v.rutaInforme}">
-                    
-    </iframe> -->  
+    <!--
+        <p>Mira la img <a th:each="v : ${vehiculos}" th:href="${v.rutaInforme}" th:download="${v.rutaInforme}">img</a></p>
+         comment
+        <iframe width="1100" height="400" th:each="v : ${vehiculos}" th:src="${v.rutaInforme}">
+                        
+        </iframe> -->  
 
     <section th:replace="~{vehiculo/fragmentos :: videos}"/>
 
     <footer th:replace="~{layout/plantilla :: footer }"/>
+
+
 
   </body>
 </html>

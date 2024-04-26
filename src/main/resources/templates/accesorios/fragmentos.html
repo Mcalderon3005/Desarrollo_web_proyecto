@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>TechShop</title>
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  </head>
+  <body>
+
+
+    <section th:fragment="botonesAgregar">
+      <div class="container my-4 p-2">
+        <div class="row">
+          <div>
+            <button type="button" class="btn btn-outline-primary"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#agregarAccesorio"
+                    >[[#{accesorio.agregar}]]</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section th:fragment="listadoAccesorios" id="accesorios">
+      <div class="container">
+        <div class="row">
+          <div th:if="${accesorios != null and !accesorios.empty}">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>[[#{categoria.nombre_accesorio}]]</th>
+                  <th>[[#{accesorio.precio}]]</th>
+                  <th>[[#{accesorio.existencias}]]</th>
+                  <th>[[#{accesorio.activo}]]</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="accesorio : ${accesorios}">
+                  <td>[[${accesorio.Cod_accesorio}]]</td>
+                  <td>[[${accesorio.nombre_accesorio}]]</td>
+                  <td>$[[${accesorio.precio * accesorio.existencias}]]</td>
+                  <td>[[${accesorio.existencias}]]</td>
+                  <td th:text="${accesorio.activo} ? 'Activa' : 'Inactiva'"/>
+                  <td>
+                    <a th:href="@{/accesorio/eliminar/}+${accesorio.Cod_accesorio}"
+                       class="btn btn-danger">
+                      <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                    <a th:href="@{/accesorio/modificar/}+${accesorio.Cod_accesorio}"
+                       class="btn btn-success">
+                      <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section th:fragment="agregarAccesorio">
+      <div id="agregarAccesorio" 
+           class="modal fade" 
+           tabindex="-1" 
+           aria-labelledby="exampleModalLabel" 
+           aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header text-black bg-orange">
+              <h5 class="modal-title">[[#{accesorio.agregar}]]</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> 
+            <form th:action="@{/accesorio/guardar}" th:object="${accesorio}"
+                  method="POST" class="was-validated" enctype="multipart/form-data">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="nombre_accesorio">[[#{accesorio.marca}]]</label>
+                  <input type="text" class="form-control" name="nombre_accesorio" required="true"/>
+                </div>
+                <div class="mb-3">
+                  <label for="precio">[[#{accesorio.precio}]]</label>
+                  <input type="number" class="form-control" name="precio" required="true"/>
+                </div>
+                <div class="mb-3">
+                  <label for="existencias">[[#{accesorio.existencias}]]</label>
+                  <input type="number" class="form-control" name="existencias" required="true"/>
+                </div>
+                <div class="mb-3">
+                  <label for="activo">[[#{accesorio.activo}]]</label>
+                  <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
+                </div>
+                <div class="mb-3">
+                  <label for="imagen">[[#{accesorio.imagen}]]</label>
+                  <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                  <img id="blah" src="#" alt="your image" height="200"/>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section th:fragment="editarAccesorio">
+      <div class="row my-4" >
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <form method="POST"
+                th:action="@{/accesorio/guardar}" 
+                th:object="${accesorio}"
+                class="was-validated"                          
+                enctype="multipart/form-data">
+            <input type="hidden" name="Cod_accesorio" th:field="*{Cod_accesorio}"/>
+            <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+      <!-- comment      <input type="hidden" name="rutaInforme" th:field="*{rutaInforme}"/>-->
+            <div id=details>
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>[[#{accion.actualizar}]]</h4>
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3">
+                          <label for="nombre_accesorio">[[#{accesorio.modelo}]]</label>
+                          <input type="text" class="form-control" name="nombre_accesorio" th:field="*{nombre_accesorio}" required="true"/>
+                        </div>
+                        <div class="mb-3">
+                          <label for="precio">[[#{accesorio.precio}]]</label>
+                          <input type="number" class="form-control" name="precio" th:field="*{precio}" required="true"/>
+                        </div>
+                        <div class="mb-3">
+                          <label for="existencias">[[#{accesorio.existencias}]]</label>
+                          <input type="number" class="form-control" name="existencias" th:field="*{existencias}" required="true"/>
+                        </div>
+                        <div class="mb-3">
+                          <label for="activo">[[#{accesorio.activo}]]</label>
+                          <input class="form-check-input" 
+                                 type="checkbox" 
+                                 name="activo" 
+                                 id="activo"
+                                 th:field="*{activo}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="imagen">[[#{accesorio.imagen}]]</label>
+                          <input class="form-control" type="file" name="imagenFile"
+                                 onchange="readURL(this);" />
+                          <img id="blah" th:src="@{${accesorio.rutaImagen}}" alt="your image" height="200"/>
+                        </div>
+                        <section th:replace="~{accesorios/fragmentos :: botonesEditar}"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+    <section th:fragment="botonesEditar">
+      <div class="container py-4 mb-4 bg-light">
+        <div class="row">
+          <div class="col-md-4 d-grid">
+            <a th:href="@{/accesorio/listado}" class="btn btn-primary">
+              <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+            </a>
+          </div>
+          <div class="col-md-4 d-grid">                                
+            <a th:href="@{/accesorio/eliminar/}+${accesorio.Cod_accesorio}"
+               class="btn btn-danger">
+              <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+            </a>
+          </div>
+          <div class="col-md-4 d-grid">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-check"></i> [[#{accion.guardar}]]
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </body>
+</html>

@@ -34,6 +34,14 @@ public class IndexController {
 
     @Autowired
     private VehiculoService vehiculoService;
+    
+//    @GetMapping("/")
+//    public String listado(Model model) {
+//        var lista = vehiculoService.getVehiculos(false);
+//        model.addAttribute("vehiculos", lista);
+//        return "index";
+//        
+//    }
 //    @Autowired
 //    private CategoriaService categoriaService;
 //    
@@ -55,7 +63,7 @@ public class IndexController {
         
         return "index";
     }
-//    
+    
     
 @GetMapping("/encuentranos/listado")
     public String encuentranos() {
@@ -74,10 +82,7 @@ public class IndexController {
     
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private CorreoMarketingService correoMarketingService;
-
+    
     @GetMapping("/informe/listado")
     public String nuevo(Model model) {
         var usuariolista = usuarioService.getUsuarios();

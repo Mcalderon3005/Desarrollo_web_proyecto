@@ -6,6 +6,7 @@ package com.prototipo.service;
 
 import com.prototipo.domain.Usuario;
 import java.util.List;
+import org.springframework.ui.Model;
 /**
  *
  * @author Tayron
@@ -38,5 +39,7 @@ public interface UsuarioService {
     
     // Se elimina el usuario que tiene el id pasado por parámetro
     public void delete(Usuario usuario);
+    
+    public Model mostrarInfo(Model model);
     
 }

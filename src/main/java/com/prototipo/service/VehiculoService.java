@@ -27,6 +27,8 @@ public interface VehiculoService {
 //    public Model getPrecios(Model model, String moneda, jakarta.servlet.http.HttpServletRequest request);
     
     public Model getPrecios(Model model, String moneda);
+    
+    public Model getPreciosIva(Model model, String pais, Vehiculo vehiculo) ;
 //    
 //    public double getPrecio(Vehiculo vehiculo);
 }

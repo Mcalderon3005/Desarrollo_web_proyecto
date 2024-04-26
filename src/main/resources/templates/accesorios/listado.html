@@ -10,8 +10,10 @@
     <body>
         <header th:replace="~{layout/plantilla :: header}" />
         
-        <section th:replace="~{vehiculo/fragmentos :: editarVehiculo}"/>
-
+        <section th:replace="~{accesorios/fragmentos :: botonesAgregar}"/>
+        <section th:replace="~{accesorios/fragmentos :: listadoAccesorios}"/>
+        <section th:replace="~{accesorios/fragmentos :: agregarAccesorio}"/>
+        
         <footer th:replace="~{layout/plantilla :: footer }"/>
         
     </body>

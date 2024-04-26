@@ -14,9 +14,27 @@ function readURL(input) {
 
 /* La siguiente función se utiliza para activar la cantidad de elementos seleccionados
  * En el carrito de compras utilizando un llamado "ajax" */
-function addCard(formulario) {
+function addCart(formulario) {
     var valor = formulario.elements[0].value;
     var url = '/carrito/agregar';
     url = url + '/' + valor;
     $("#resultsBlock").load(url);
+}
+
+function convertir() {
+    var valore = parseInt(document.getElementById("valore").value);
+    var resultado = 0;
+    var usa = 0.21;
+    var eu = 0.8;
+    if (document.getElementById("uno").checked){
+        resultado = valore * usa;
+        alert("El valor con el IVA de USA incluido es de $" + resultado);
+    }
+    else if(document.getElementById("dos").checked) {
+        resultado = valore * eu;
+        alert("El valor con el IVA de EU incluido es de €" + resultado);
+    }
+    else {
+        alert("Tienes que completar todos los requerimientos");
+    }
 }

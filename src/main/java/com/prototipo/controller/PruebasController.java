@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -26,7 +29,6 @@ public class PruebasController {
     private VehiculoService vehiculoService;
     @Autowired
     private CategoriaService categoriaService;
-    
 
     @GetMapping("/listado")
     public String listado(Model model) {
@@ -38,6 +40,7 @@ public class PruebasController {
         model.addAttribute("categorias", categorias);
         return "/pruebas/listado";
     }
+
     @GetMapping("/listado/{idCategoria}")
     public String modifica(Categoria categoria, Model model) {
         //Se obtiene un objeto categoria
@@ -52,7 +55,7 @@ public class PruebasController {
 
         return "/pruebas/listado";
     }
-    
+
     @GetMapping("/detalles/{idVehiculo}")
     public String detalles(Model model, Vehiculo vehiculo) {
         vehiculo = vehiculoService.getVehiculo(vehiculo);
@@ -62,6 +65,23 @@ public class PruebasController {
 //        var categorias = categoriaService.getCategorias(false);
 //        model.addAttribute("categorias", categorias);
         return "/pruebas/detalle";
+    }
+
+    @PostMapping("/detalles/calcular")
+    public String calcular(@ModelAttribute("pais") String pais, Model model, Vehiculo vehiculo) {
+        model = vehiculoService.getPreciosIva(model, pais, vehiculo);
+
+        return "redirect:/detalles";
+    }
+
+    @GetMapping("/cotizar/{idVehiculo}")
+    //ModelAndView porque solo se va a refrescar un pedazo
+    public ModelAndView cotizar(@ModelAttribute("pais") String pais, Model model, Vehiculo vehiculo) {
+//        vehiculo = vehiculoService.getVehiculo(vehiculo);
+//        double precio = vehiculo.getPrecio();
+//        model.addAttribute("precio", precio);
+        model = vehiculoService.getPreciosIva(model, pais, vehiculo);
+        return new ModelAndView("/pruebas/fragmentos :: verResultado");
     }
 
 //    @GetMapping("/listado/{idVehiculo}")
@@ -85,5 +105,4 @@ public class PruebasController {
 //
 //        return "/pruebas/listado";
 //    }
-
 }

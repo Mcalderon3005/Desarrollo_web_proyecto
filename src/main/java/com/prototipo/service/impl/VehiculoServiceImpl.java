@@ -116,7 +116,7 @@ public class VehiculoServiceImpl implements VehiculoService{
             double precioConvertido = convertirMoneda(vehiculo.getPrecio(), moneda);
             vehiculo.setPrecio(precioConvertido);
         }
-        System.out.println(moneda);
+//        System.out.println(moneda);
         model.addAttribute("vehiculos", vehiculos);
         model.addAttribute("moneda", moneda);
         return model;
@@ -131,6 +131,37 @@ public class VehiculoServiceImpl implements VehiculoService{
         //retornar el precio original
         return precio;
     }
+    }
+    
+    
+    @Override
+    public Model getPreciosIva(Model model, String pais, Vehiculo vehiculo) {
+    vehiculo = autoDao.findById(vehiculo.getIdVehiculo()).orElse(null);
+    
+    double iva = calIva(vehiculo.getPrecio(), pais);
+    double precioFinal = vehiculo.getPrecio() + iva;
+
+    model.addAttribute("vehiculo", vehiculo);
+    model.addAttribute("iva", iva);
+    model.addAttribute("precioFinal", precioFinal);
+    
+    return model;
+}
+    
+    private double calIva(double precio, String pais){
+        if("usa".equals(pais)){
+//            if(precio >= 11000){
+//                return precio * 0.12;
+//            }else{
+                return precio * 0.21;
+//            }
+        }else if("espana".equals(pais)){
+//            if(precio <= 15000){
+                return precio * 0.8;
+//            }
+        }
+        
+        return precio;
     }
 }
 

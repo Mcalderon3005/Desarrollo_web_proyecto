@@ -15,8 +15,11 @@ import com.prototipo.domain.Usuario;
 import com.prototipo.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -77,5 +80,35 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void delete(Usuario usuario) {
         usuarioDao.delete(usuario);
+    }
+    
+    @Override
+    public Model mostrarInfo(Model model){
+        String username;
+        Object principal = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        
+        if (principal instanceof UserDetails userDetails) {
+            username = userDetails.getUsername();
+        } else {
+            username = principal.toString();
+        }
+        
+        if (username.isBlank()) {
+            System.out.println("username en blanco");
+            return model;
+        }
+        
+        Usuario usuario = usuarioDao.findByUsername(username);
+        if (usuario == null) {
+            System.out.println("usuario no encontrado " + username);
+            return model;
+        }
+        
+        model.addAttribute("usuario", usuario);
+        
+        return model;
     }
 }
