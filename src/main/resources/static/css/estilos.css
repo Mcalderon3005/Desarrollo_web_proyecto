@@ -160,3 +160,7 @@ footer{
         align-items: flex-start;
     }
 }*/
+
+.iframe-encuentranos {
+    border: 2px solid var(--color-pri);
+}

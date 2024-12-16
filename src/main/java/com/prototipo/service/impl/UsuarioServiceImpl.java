@@ -9,6 +9,7 @@ package com.prototipo.service.impl;
  * @author Tayron
  */
 import com.prototipo.dao.RolDao;
+import com.prototipo.dao.TarjetaDao;
 import com.prototipo.dao.UsuarioDao;
 import com.prototipo.domain.Rol;
 import com.prototipo.domain.Usuario;
@@ -27,6 +28,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioDao usuarioDao;
     @Autowired
     private RolDao rolDao;
+    
+    @Autowired
+    private TarjetaDao tarjetaDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -111,4 +115,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         
         return model;
     }
+    
+    
 }

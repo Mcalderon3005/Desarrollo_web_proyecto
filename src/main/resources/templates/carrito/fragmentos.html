@@ -189,17 +189,24 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Seleccione el metodo de pago</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:action="@{/facturar/carrito}">
-            <div class="modal-body">
-              Hola
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Pagar</button>
-            </div>
+            <form th:action="@{/facturar/carrito}" method="POST" th:object="${tarjeta}">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <h2>Seleccione la tarjeta</h2>
+                  <label for="tarjeta">
+                    <input class="form-check-input" id="tarjeta" type="radio" name="tarjeta"
+                           th:value="${tarjetaNum}"
+                           th:text="${tarjetaNum}"/></label>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Pagar</button>
+              </div>
             </form>
           </div>
         </div>

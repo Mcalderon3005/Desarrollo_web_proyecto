@@ -63,16 +63,17 @@ public class ProjectConfig implements WebMvcConfigurer {
         //A todo el mundo le permitimos esas rutas
         http.authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/js/**", "/webjars/**", "/registro/**",
-                        "/css/**", "/img/**","/encuentranos/listado","/pruebas/detalles/**","/carrito/**")
+                        "/css/**", "/img/**","/encuentranos/listado","/pruebas/detalles/**",
+                        "/carrito/**","/pruebas/listado/**","/promociones/listado","/envios/listado")
                 .permitAll()
                 .requestMatchers("/categoria/listado", "/vehiculo/listado","/accesorio/listado")
                 .hasRole("VENDEDOR")
                 .requestMatchers("/categoria/nuevo", "/categoria/modificar/**", "/categoria/eliminar/**", "/categoria/guardar",
                         "/vehiculo/nuevo", "/vehiculo/modificar/**", "/vehiculo/eliminar/**", "/vehiculo/guardar","/vehiculo/editar", "/pruebas/listado/**",
-                        "/marketing/**","/promociones/listado","/envios/listado","/informe/**",
+                        "/marketing/**","/informe/**",
                         "/accesorio/nuevo", "/accesorio/modificar/**", "/accesorio/eliminar/**", "/accesorio/guardar")
                 .hasRole("ADMIN")
-                .requestMatchers("/facturar/carrito","/perfil/mostrar")
+                .requestMatchers("/facturar/carrito","/perfil/**")
                 .hasRole("USER")
         )
                 .formLogin((form) -> form.loginPage("/login").permitAll().defaultSuccessUrl("/", true))

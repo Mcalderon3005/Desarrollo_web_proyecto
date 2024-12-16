@@ -25,7 +25,7 @@ function convertir() {
     var valore = parseInt(document.getElementById("valore").value);
     var resultado = 0;
     var usa = 0.21;
-    var eu = 0.8;
+    var eu = 0.08;
     if (document.getElementById("uno").checked){
         resultado = valore * usa;
         alert("El valor con el IVA de USA incluido es de $" + resultado);

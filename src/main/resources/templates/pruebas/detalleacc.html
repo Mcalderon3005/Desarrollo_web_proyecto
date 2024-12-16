@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Esta es mi primera página HTML -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout/plantilla :: head}">
+    <title>La Pulpe</title>
+    <meta charset="UTF-8"/>
+  </head>
+  <body>
+    <!-- layout es el folder y plantilla el nombre del archivo -->
+    <header th:replace="~{layout/plantilla :: header}"/>
+
+    <section th:replace="~{pruebas/fragmentos :: accesorioDetalles}"/>
+
+    <footer th:replace="~{layout/plantilla :: footer}"/>
+
+    <script>
+      function convertir() {
+          var valore = parseInt(document.getElementById("valore").value);
+          var resultado = 0;
+          var usa = 0.21;
+          var eu = 0.8;
+          if (document.getElementById("uno").checked) {
+              resultado = valore * usa;
+              alert("El valor con el IVA de USA incluido es de $" + resultado);
+          } else if (document.getElementById("dos").checked) {
+              resultado = valore * eu;
+              alert("El valor con el IVA de EU incluido es de €" + resultado);
+          } else {
+              alert("Tienes que completar todos los requerimientos");
+          }
+      }
+      
+      function convertir2() {
+        var resultado = parseFloat(document.getElementById("result").value);
+        alert(resultado);
+      }
+
+      function cotizar(formulario) {
+          var valor = formulario.elements[0].value;
+          var url = '/pruebas/cotizar';
+          url = url + '/' + valor;
+          $("#resultsBlock").load(url);
+      }
+    </script>
+  </body>
+</html>

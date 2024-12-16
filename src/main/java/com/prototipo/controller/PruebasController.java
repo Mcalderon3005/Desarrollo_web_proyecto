@@ -4,8 +4,10 @@
  */
 package com.prototipo.controller;
 
+import com.prototipo.domain.Accesorio;
 import com.prototipo.domain.Categoria;
 import com.prototipo.domain.Vehiculo;
+import com.prototipo.service.AccesorioService;
 import com.prototipo.service.CategoriaService;
 import com.prototipo.service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +84,25 @@ public class PruebasController {
 //        model.addAttribute("precio", precio);
         model = vehiculoService.getPreciosIva(model, pais, vehiculo);
         return new ModelAndView("/pruebas/fragmentos :: verResultado");
+    }
+
+    @Autowired
+    AccesorioService accesorioServcie;
+
+    @GetMapping("/listado/accesorio")
+    public String listadoAcc(Model model) {
+        var lista = accesorioServcie.getAccesorios(false);
+        model.addAttribute("accesorios", lista);
+
+        return "/pruebas/listadoacc";
+    }
+
+    @GetMapping("/detalles/accesorio/{Cod_accesorio}")
+    public String detallesAcc(Model model, Accesorio accesorio) {
+        accesorio = accesorioServcie.getAccesorio(accesorio);
+        model.addAttribute("accesorio", accesorio);
+        
+        return "/pruebas/detalleacc";
     }
 
 //    @GetMapping("/listado/{idVehiculo}")

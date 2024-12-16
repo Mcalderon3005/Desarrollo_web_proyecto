@@ -5,13 +5,17 @@
 package com.prototipo.controller;
 
 import com.prototipo.domain.Item;
+import com.prototipo.domain.Tarjeta;
 import com.prototipo.domain.Vehiculo;
 import com.prototipo.service.ItemService;
+import com.prototipo.service.TarjetaService;
+import com.prototipo.service.UsuarioService;
 import com.prototipo.service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +31,9 @@ public class CarritoController {
 
     @Autowired
     private VehiculoService vehiculoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/carrito/agregar/{idVehiculo}")
     //ModelAndView porque solo se va a refrescar un pedazo
@@ -78,6 +85,12 @@ public class CarritoController {
         model.addAttribute("descuento", descuento);
         model.addAttribute("carritoTotal", carritoTotal);
 
+        
+        Tarjeta tarjeta = tarjetaService.getTarjetaPorUsuarioAutenticado();
+         if (tarjeta != null) {
+        model.addAttribute("tarjetaNum", tarjeta.getNumeroTarjeta());
+         }
+
         return "/carrito/listado";
     }
 
@@ -100,14 +113,32 @@ public class CarritoController {
         return "redirect:/carrito/listado";
     }
 
-    @GetMapping("/facturar/carrito")
-    public String facturar() {
-        var lista = itemService.gets();
-        if (lista != null && !lista.isEmpty()) {
-            itemService.facturar();
-        } else {
-            System.out.println("No hay items en el carrito");
-        }
-        return "redirect:/";
+    @Autowired
+    private TarjetaService tarjetaService;
+
+    @PostMapping("/facturar/carrito")
+public String facturar(Tarjeta tarjeta) {
+    tarjeta = tarjetaService.getTarjeta(tarjeta);
+    
+    if (tarjeta == null || tarjeta.getNumeroTarjeta() == null || tarjeta.getNumeroTarjeta().isBlank()) {
+//        model.addAttribute("error", "Tarjeta inválida o no seleccionada.");
+        return "redirect:/carrito/listado";
     }
+
+    // Obtener la lista de elementos del carrito
+    var lista = itemService.gets();
+    
+    // Validar que la lista no esté vacía
+    if (lista == null || lista.isEmpty()) {
+//        model.addAttribute("error", "El carrito está vacío.");
+        return "redirect:/carrito/listado";
+    }
+
+    // Si todo está correcto, proceder con la facturación
+    itemService.facturar(); // Aquí puedes agregar más lógica si es necesario
+
+    return "redirect:/"; // Redireccionar a la página principal o a donde sea necesario
+}
+
+
 }

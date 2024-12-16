@@ -85,9 +85,18 @@
             <p>Valor: $[[${vehiculo.precio}]]</p>
             <p th:if="${vehiculo.rutaInforme != null}">Ruta del <a th:href="${vehiculo.rutaInforme}">informe</a></p>
 
-            <button class="btn bg-naranja">
-              Agregar
-            </button>
+            <form>
+              <input type="hidden" 
+                     name="idVehiculo" 
+                     th:value="${vehiculo.idVehiculo}" />
+              <button class="btn bg-naranja"
+                      id="addCar"
+                      name="addCar"
+                      onclick="addCart(this.form)"
+                      type="button">
+                <i class="fas fa-cart-plus"></i> Agregar
+              </button>
+            </form>
             <!-- comment 
                 <select class="form-select" name="pais">
                   <option value="usa" id="uno">Estados Unidos</option>
@@ -96,44 +105,135 @@
             <form class="mt-2" >
               <div>
                 <label class="my-2">
-                <input type="radio" name="pais" id="uno"/>USA</label>
+                  <input type="radio" name="pais" id="uno"/>USA</label>
                 <label class="my-2">
-                <input type="radio" name="pais" id="dos"/>EU</label>
+                  <input type="radio" name="pais" id="dos"/>EU</label>
                 <br/>
-                  <!--  <input type="number" id="valore" class="form-control" name="precio" th:field="*{precio}" readonly/>-->
-                   <input type="hidden" 
-                   name="precio" 
-                   th:value="${vehiculo.precio}" id="valore"/>
-                   <!--  <input type="hidden" 
-                   name="idVehiculo" 
-                   th:value="${vehiculo.idVehiculo}" />-->
-                  <input class="btn btn-primary" type="button" id="cotizador" value="Cotizar" onclick="convertir()"/>
-                  <!-- comment<button type="submit" class="btn btn-success mt-2">Calcular</button> -->
+                <!--  <input type="number" id="valore" class="form-control" name="precio" th:field="*{precio}" readonly/>-->
+                <input type="hidden" 
+                       name="precio" 
+                       th:value="${vehiculo.precio}" id="valore"/>
+                <!--  <input type="hidden" 
+                name="idVehiculo" 
+                th:value="${vehiculo.idVehiculo}" />-->
+                <input class="btn btn-primary" type="button" id="cotizador" value="Cotizar" onclick="convertir()"/>
+                <!-- comment<button type="submit" class="btn btn-success mt-2">Calcular</button> -->
               </div>
             </form>
-            <div id="resultsBlock">
+           
               <!-- comment 
               <label for="iva">Iva</label>
               <input class="form-control" name="iva" type="text" field=""/>
 
               <label for="precioFinal">Precio final</label>
               <input class="form-control" name="precioFinal" type="text"/>-->
+            
           </div>
+          <!-- comment
+          <div class="row">
+            <div class="col-md-3">
+              hola mundo
+            </div>
+          </div> -->
         </div>
-        <!-- comment
-        <div class="row">
-          <div class="col-md-3">
-            hola mundo
-          </div>
-        </div> -->
       </div>
     </main>
-    
-    
+
+
     <section th:fragment="verResultado"><!-- No se muestra si esta vacia -->
       <p>Cotizado igual a [[${precioFinal}]]</p>
     </section>
+
+    <section th:fragment="listadoAccesorios">
+      <div class="container">
+        <!-- fila de 3 columnas -->
+        <div class="row row-cols-4">
+          <!-- carta de padding 2 , 
+          producto porque fue inyectado desde controller, p es una variable-->
+          <div class="card p-2" style="border: 0;" th:each="a : ${accesorios}">
+            <figure>
+              <!-- thymeleaf th:src ruta de imagen -->
+              <img th:src="${a.rutaImagen}" 
+                   class="card-img-top" 
+                   alt="alt" width="100%"/>
+              <!--<figcaption>
+                  Está envuelta entre paréntesis para que se muestre como parte del mismo texto del precio
+                [[...]] se utiliza para procesar el texto sin escapar  
+                <span th:if="${moneda == 'euro'}">€</span>
+                <span th:if="${moneda == 'dolar'}">$</span>
+                [[${a.precio}]] ([[${a.existencias}]])
+
+              </figcaption>-->
+            </figure>
+            <div class="card-body d-flex justify-content-center">
+              <!-- p porque lo nombramos arriba -->
+              <a th:href="@{/pruebas/detalles/accesorio/}+${a.Cod_accesorio}" style="text-decoration: none; color: #000;"><h4>[[${a.nombre_accesorio}]] <i class="fa-solid fa-chevron-right" style="color: var(--color-pri)"></i></h4></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     
+    <main th:fragment="accesorioDetalles" class="mb-4">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-7">
+            <div class="d-flex justify-content-center">
+              <figure class="figure">
+                <img th:src="${accesorio.rutaImagen}" 
+                     class="rounded" 
+                     alt="Imagen del accesorio"
+                     width="100%"/>
+              </figure>
+
+            </div>
+          </div>
+          <div class="col-md-5">
+            <h2>[[${accesorio.nombre_accesorio}]]</h2>
+            <p>Existencias totales [[${accesorio.existencias}]]</p>
+            <p>Valor: $[[${accesorio.precio}]]</p>
+             <!--
+            <form>
+              <input type="hidden" 
+                     name="idVehiculo" 
+                     th:value="${vehiculo.idVehiculo}" />
+              <button class="btn bg-naranja"
+                      id="addCar"
+                      name="addCar"
+                      onclick="addCart(this.form)"
+                      type="button">
+                <i class="fas fa-cart-plus"></i> Agregar
+              </button>
+            </form>
+            comment 
+                <select class="form-select" name="pais">
+                  <option value="usa" id="uno">Estados Unidos</option>
+                  <option value="espana" id="dos">España</option>
+                </select>
+            <form class="mt-2" >
+              <div>
+                <!-- 
+                <label class="my-2">
+                  <input type="radio" name="pais" id="uno"/>USA</label>
+                <label class="my-2">
+                  <input type="radio" name="pais" id="dos"/>EU</label>
+                <br/>
+                <!--  <input type="number" id="valore" class="form-control" name="precio" th:field="*{precio}" readonly/>
+                <input type="hidden" 
+                       name="precio" 
+                       th:value="${vehiculo.precio}" id="valore"/>
+                <!--  <input type="hidden" 
+                name="idVehiculo" 
+                th:value="${vehiculo.idVehiculo}" />
+                <input class="btn btn-primary" type="button" id="cotizador" value="Cotizar" onclick="convertir()"/>
+                <!-- comment<button type="submit" class="btn btn-success mt-2">Calcular</button> -->-->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
 
     <!--
     <section th:fragment="tabBotons">
@@ -152,6 +252,6 @@
      <button class="btn btn-primary" th:onclick="|window.location.href='/index'|">Texto del botón</button>
     -->
     </div>
-    
+
   </body>
 </html>

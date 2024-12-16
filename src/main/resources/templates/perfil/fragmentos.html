@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col-lg-3 col-md-4">
             <div class="card mb-5">
-              <div class="card-body 
+              <div class="card-body
                    d-flex justify-content-center align-items-center">
                 <figure class="figure m-0">
                   <img th:src="${usuario.rutaImagen}" 
@@ -29,12 +29,68 @@
           <div class="col-lg-9 col-md-8">
             <div class="card mb-5" style="height: 232px">
               <div class="card-body">
-                <p>[[${usuario.nombre}]] [[${usuario.apellidos}]]</p>
-                <p>[[${usuario.username}]]</p>
-                <p>[[${usuario.correo}]]</p>
-                <p>[[${usuario.telefono}]]</p>
+                <p>Nombre completo: <span class="fw-bold">[[${usuario.nombre}]] [[${usuario.apellidos}]]</span></p>
+                <p>Username: <span class="fw-bold">[[${usuario.username}]]</span></p>
+                <p>Correo: <span class="fw-bold">[[${usuario.correo}]]</span></p>
+                <p>Teléfono: <span class="fw-bold">[[${usuario.telefono}]]</span></p>
+                <div th:if="${usuario?.tarjetaDeCredito != null}">
+                  <span>Número de Tarjeta: </span>
+                  <span class="fw-bold" th:text="${usuario.tarjetaDeCredito.numeroTarjeta}"></span>
+                  <a th:href="@{/perfil/tarjeta/eliminar/}+${usuario.idUsuario}"
+                     class="btn btn-danger mx-3">
+                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                </div>
+                <div th:if="${usuario?.tarjetaDeCredito == null}">
+                  <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#pagarFactura">
+                    <i class="fa-regular fa-credit-card"></i> Colocar Tarjeta
+                  </button>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section th:fragment="colocarTarjeta">
+      <div class="modal fade" id="pagarFactura" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Seleccione la tarjeta</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/perfil/tarjeta}" method="POST" th:object="${tarjeta}">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="numeroTarjeta">Numero de tarjeta</label>
+                  <input type="text" class="form-control" name="numeroTarjeta" required="true"/>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="titular">Titular</label>
+                  <input type="text" class="form-control" name="titular" required="true"/>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                  <input type="text" class="form-control" name="fechaVencimiento" required="true"
+                         minlength="5" maxlength="5" pattern="^^(0[1-9]|1[0-2])[/-][0-9]{2}$" placeholder="MM/YY"/>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="cvv">CVV</label>
+                  <input type="text" class="form-control" name="cvv" required="true"/>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Pagar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

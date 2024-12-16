@@ -33,4 +33,7 @@ public class Usuario implements Serializable{
     @OneToMany
     @JoinColumn(name="id_usuario")
     private List<Rol> roles;
+    
+    @OneToOne(mappedBy = "usuario") // Indica que TarjetaDeCredito tiene la clave foránea
+    private Tarjeta tarjetaDeCredito;
 }

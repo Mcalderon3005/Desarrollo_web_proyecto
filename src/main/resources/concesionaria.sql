@@ -47,11 +47,61 @@ CREATE TABLE concesionaria.usuario (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
+
+create table concesionaria.factura (
+  id_factura INT NOT NULL AUTO_INCREMENT,
+  id_usuario INT NOT NULL,
+  fecha date,  
+  subtotal double,
+  descuento double,
+  total double,
+  estado int,
+  PRIMARY KEY (id_factura),
+  foreign key fk_factura_usuario (id_usuario) references usuario(id_usuario)  
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+create table concesionaria.venta (
+  id_venta INT NOT NULL AUTO_INCREMENT,
+  id_factura INT NOT NULL,
+  id_vehiculo INT NOT NULL,
+  precio double, 
+  cantidad int,
+  PRIMARY KEY (id_venta),
+  foreign key fk_ventas_factura (id_factura) references factura(id_factura),
+  foreign key fk_ventas_vehiculo (id_vehiculo) references vehiculo(id_vehiculo) 
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+create table concesionaria.tarjeta (
+numero_tarjeta VARCHAR(20) NOT NULL,
+titular VARCHAR(50) NOT NULL,
+f_vencimiento varchar(10) NOT NULL,
+cvv INT NOT NULL,
+id_usuario INT NOT NULL,
+UNIQUE (id_usuario),  -- Garantiza la relación uno a uno
+PRIMARY KEY (numero_tarjeta),  -- Clave primaria para la tabla
+FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
+
+create table concesionaria.accesorio (
+cod_accesorio INT NOT NULL AUTO_INCREMENT,
+nombre_accesorio varchar(20) not null,
+precio double not null, 
+existencias int,  
+ruta_imagen varchar(1024),
+activo bool,
+PRIMARY KEY (cod_accesorio))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
 /*Se insertan 3 registros en la tabla cliente como ejemplo */
 INSERT INTO concesionaria.usuario (id_usuario, username,password,nombre, apellidos, correo, telefono,ruta_imagen,activo) VALUES 
-(1,'messi','$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.','Lionel', 'Messi Cuccitini',    'jcastro@gmail.com',    '4556-8978', 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',true),
-(2,'ronaldo','$2a$10$GkEj.ZzmQa/aEfDmtLIh3udIH5fMphx/35d0EYeqZL5uzgCJ0lQRi','Cristiano',  'Ronaldo Dos Santos', 'acontreras@gmail.com', '5456-8789','https://upload.wikimedia.org/wikipedia/commons/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg',true),
-(3,'neymar','$2a$10$koGR7eS22Pv5KdaVJKDcge04ZB53iMiw76.UjHPY.XyVYlYqXnPbO','Neymar', 'da Silva Santos Júnior',     'lmena@gmail.com',      '7898-8936','https://upload.wikimedia.org/wikipedia/commons/8/83/Bra-Cos_%281%29_%28cropped%29.jpg',true);
+(1,'messi','$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.','Lionel', 'Messi Cuccitini',    'lmessi10@gmail.com',    '4556-8978', 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg',true),
+(2,'ronaldo','$2a$10$GkEj.ZzmQa/aEfDmtLIh3udIH5fMphx/35d0EYeqZL5uzgCJ0lQRi','Cristiano',  'Ronaldo Dos Santos', 'cronaldo7@gmail.com', '5456-8789','https://upload.wikimedia.org/wikipedia/commons/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_against_Persepolis%2C_September_2023_%28cropped%29.jpg',true),
+(3,'neymar','$2a$10$koGR7eS22Pv5KdaVJKDcge04ZB53iMiw76.UjHPY.XyVYlYqXnPbO','Neymar', 'da Silva Santos Júnior',     'neymarjr@gmail.com',      '7898-8936','https://upload.wikimedia.org/wikipedia/commons/8/83/Bra-Cos_%281%29_%28cropped%29.jpg',true);
 
 create table concesionaria.rol (
   id_rol INT NOT NULL AUTO_INCREMENT,
@@ -76,4 +126,5 @@ INSERT INTO concesionaria.categoria (id_categoria,descripcion,ruta_imagen,activo
 (5,'Usado','https://th.bing.com/th/id/OIP.XlDvPL0ULxYaKk8wBPQoXgHaEH?rs=1&pid=ImgDetMain',false);
 
 INSERT INTO concesionaria.vehiculo (id_vehiculo,id_categoria,marca,modelo,anio,color,precio,existencias,ruta_imagen,activo,ruta_informe) VALUES
-(1,1,'Toyota','GR Supra',2024,'Rojo',45540,2,'https://www.toyota.com/imgix/content/dam/toyota/jellies/max/2024/grsupra/45thanniversaryedition/2376/d19/36/5.png?fmt=webp&wid=930&qlt=90',true,NULL);
+(1,1,'Toyota','GR Supra',2024,'Rojo',45540,2,'https://www.toyota.com/imgix/content/dam/toyota/jellies/max/2024/grsupra/45thanniversaryedition/2376/d19/36/5.png?fmt=webp&wid=930&qlt=90',true,NULL),
+(2,2,'Toyota','Yaris',2021,'Negro',31600,4,'https://cdn-api.toyotacr.com/toyotacr_website/media/cache/hero_bg_small/uploads/model/201f4d4fd80ed38fa0701db505e2fb6d6fcbfe91.png',true,null);

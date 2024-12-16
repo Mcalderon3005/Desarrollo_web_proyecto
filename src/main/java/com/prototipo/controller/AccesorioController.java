@@ -44,14 +44,14 @@ public class AccesorioController {
             accesorio.setRutaImagen(ruta);
         }
         accesorioService.save(accesorio);
-        return "redirect:/accesorios/listado";
+        return "redirect:/accesorio/listado";
     }
 
     @GetMapping("/modificar/{cod_accesorio}")
     public String modifica(Accesorio accesorio, Model model) {
         accesorio = accesorioService.getAccesorio(accesorio);
         model.addAttribute("accesorio", accesorio);
-        return "/accesorio/modifica";
+        return "/accesorios/modifica";
     }
 
     @GetMapping("/eliminar/{cod_accesorio}")
